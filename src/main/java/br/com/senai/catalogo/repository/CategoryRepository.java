@@ -7,4 +7,6 @@ import br.com.senai.catalogo.entity.Category;
 public interface CategoryRepository extends JpaRepository<Category, UUID>{
 
     boolean existsByNameIgnoreCase(String name);
+
+    boolean existsByNameIgnoreCaseAndIdNot(String name, UUID id);
 }

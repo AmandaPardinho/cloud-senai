@@ -66,6 +66,32 @@ public class ProductService {
         return toResponse(productRepository.save(product));
     }
 
+    @Transactional
+    public ProductResponse update(UUID id, ProductRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado: " + id));
+
+        Category category = categoryRepository.findById(request.categoryId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Categoria não encontrada: " + request.categoryId()));
+
+        product.setName(request.name());
+        product.setStockQuantity(request.stockQuantity());
+        product.setPrice(request.price());
+        product.setCategory(category);
+
+        return toResponse(product);
+    }
+
+    @Transactional
+    public void delete(UUID id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Produto não encontrado: " + id);
+        }
+
+        productRepository.deleteById(id);
+    }
+
     static ProductResponse toResponse(Product product) {
         return new ProductResponse(
                 product.getId(),

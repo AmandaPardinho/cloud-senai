@@ -46,6 +46,30 @@ public class CategoryService {
         return toResponse(categoryRepository.save(category));
     }
 
+    @Transactional
+    public CategoryResponse update(UUID id, CategoryRequest request){
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada: " + id));
+
+        if(categoryRepository.existsByNameIgnoreCaseAndIdNot(request.name(), id)){
+            throw new DuplicateResourceException("Já existe uma categoria com o nome: " + request.name());
+        }
+
+        category.setName(request.name());
+        category.setDescription(request.description());
+
+        return toResponse(category);
+    }
+
+    @Transactional
+    public void delete(UUID id){
+        if(!categoryRepository.existsById(id)){
+            throw new ResourceNotFoundException("Categoria não encontrada: " + id);
+        }
+
+        categoryRepository.deleteById(id);
+    }
+
     static CategoryResponse toResponse(Category category) {
         return new CategoryResponse(
                 category.getId(),
