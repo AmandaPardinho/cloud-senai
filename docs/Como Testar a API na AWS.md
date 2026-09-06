@@ -6,6 +6,84 @@ demonstração do vídeo. Postman como ferramenta principal, com o equivalente e
 
 ---
 
+## 0. Instalar o Postman
+
+### É gratuito
+
+O Postman tem uma versão paga, mas **nada neste projeto encosta nela**. Tudo o
+que este documento pede — criar requisições, environments com variáveis, scripts
+de pós-resposta, importar OpenAPI, salvar collections — está no plano gratuito.
+
+O que a versão paga acrescenta é voltado a **time e automação**: mais pessoas
+colaborando na mesma collection, execução automática de testes em volume,
+monitoramento agendado da API, catálogo interno de APIs, login corporativo e
+controle de permissões. Nada disso tem a ver com demonstrar uma API num vídeo.
+
+> Você precisa criar uma conta gratuita para usar a maior parte dos recursos (é
+> ela que sincroniza suas collections entre dispositivos). Existe também um modo
+> mais enxuto sem login, mas ele limita o que dá para salvar — para este trabalho,
+> criar a conta é o caminho mais tranquilo.
+>
+> Os limites exatos do plano gratuito mudam de tempos em tempos; se aparecer
+> algum aviso de limite, confira em [postman.com/pricing](https://www.postman.com/pricing).
+
+### Nesta máquina (Linux Mint) já está instalado
+
+Instalado via snap, versão 11.71.7. Nada a fazer — pule para a seção 1.
+
+### Instalação no Windows (para o resto do grupo)
+
+**Opção 1 — instalador (mais direto)**
+
+1. Abrir [postman.com/downloads](https://www.postman.com/downloads/)
+2. Clicar em **Windows 64-bit** — o site já detecta o sistema
+3. Executar o `.exe` baixado
+
+O instalador **não pede senha de administrador**: o Postman se instala na pasta
+do próprio usuário. Isso resolve o caso de computador do trabalho ou da
+faculdade, onde normalmente não se tem permissão de administrador.
+
+**Opção 2 — pelo terminal, com o `winget`**
+
+O `winget` já vem no Windows 10 e 11. No PowerShell ou Prompt de Comando:
+
+```powershell
+winget install Postman.Postman
+```
+
+Depois é só abrir pelo menu Iniciar.
+
+### Detalhes que valem para o grupo
+
+**Todo mundo precisa de conta própria.** As collections ficam vinculadas à conta
+de quem as criou. Se você montar a collection e quiser passar adiante, exporte:
+**Collection → ⋯ → Export → Collection v2.1**, gera um `.json` que os outros
+importam. O mesmo vale para o environment (o das variáveis com o IP).
+
+> ⚠️ **Cuidado ao exportar o environment.** Se em algum momento você guardar
+> senha ou credencial numa variável, ela vai junto no arquivo exportado. Para
+> este projeto não há segredo nenhum nas variáveis (só o IP e uns UUIDs), mas
+> vale saber antes de mandar arquivo no grupo do WhatsApp.
+
+**Se a API não responder na máquina de alguém e responder na sua**, quase sempre
+é a rede daquela pessoa bloqueando a porta 8080 (comum em rede corporativa ou de
+faculdade) — não é problema da aplicação. Testar pelo celular na rede móvel
+confirma na hora.
+
+**macOS**, se alguém usar: mesmo link de download, ou `brew install --cask postman`.
+
+### Alternativas aceitas pelo desafio
+
+O PDF pede "Postman, Insomnia **ou recurso equivalente**". Então valem também:
+
+| Ferramenta | Observação |
+|---|---|
+| **Insomnia** | Mesma proposta, mais leve. Instalador em [insomnia.rest/download](https://insomnia.rest/download) |
+| **Swagger UI** | Já embutido na sua aplicação (seção 1.4) — mas use como apoio, não como demonstração principal |
+| **`curl`** | Funciona (seção 4), porém no vídeo é menos legível que uma interface |
+
+---
+
 ## 1. Preparar o Postman
 
 ### 1.1 Criar o Environment
